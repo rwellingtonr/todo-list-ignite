@@ -7,12 +7,12 @@ export function Checkbox(props: CheckboxProps) {
 		<div className="relative">
 			<input
 				{...props}
-				id="inputCheckbox"
+				id={`inputCheckbox-${props.id}`}
 				type="checkbox"
 				className="peer/inputCheckbox invisible "
 			/>
 			<label
-				htmlFor="inputCheckbox"
+				htmlFor={`inputCheckbox-${props.id}`}
 				className="border-2 border-blue 
         rounded-full 
         cursor-pointer 

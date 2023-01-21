@@ -1,15 +1,19 @@
 import { Trash } from "phosphor-react";
+import { ButtonHTMLAttributes } from "react";
 
-type DeleteButtonProps = {};
+type DeleteButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function DeleteButton({}: DeleteButtonProps) {
+export function DeleteButton(props: DeleteButtonProps) {
 	return (
-		<span className="bg-transparent p-1 rounded hover:bg-gray-400" aria-label="delete button">
+		<button
+			{...props}
+			className="bg-transparent p-1 rounded cursor-pointer hover:bg-gray-400"
+			aria-label="delete button">
 			<Trash
-				size={14}
+				size={24}
 				aria-label="trash icon"
 				className="text-gray-300 transition duration-100 ease-out  hover:text-danger   "
 			/>
-		</span>
+		</button>
 	);
 }
