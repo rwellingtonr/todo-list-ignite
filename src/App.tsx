@@ -10,12 +10,12 @@ import { useToast } from "./context/ToastProvider";
 type TaskData = {
 	id: string;
 	todo: string;
+	isCompleted: boolean;
 };
 
 export function App() {
 	const [tasks, setTasks] = useState<TaskData[]>([]);
 	const [todo, setTodo] = useState<string>("");
-	const [countCompletedTask, setCountCompletedTask] = useState<number>(0);
 
 	const { notification } = useToast();
 
@@ -27,6 +27,7 @@ export function App() {
 		const newTask: TaskData = {
 			id: uuid(),
 			todo,
+			isCompleted: false,
 		};
 		setTasks((prev) => [...prev, newTask]);
 		setTodo("");
@@ -38,10 +39,16 @@ export function App() {
 		setTasks(tasksWithoutRemovedOne);
 	};
 
-	const handleCompletedTask = () => {
-		setCountCompletedTask((prev) => prev + 1);
+	const handleCompletedTask = (id: string, isCompleted: boolean) => {
+		const tasksCopy = [...tasks];
+		const index = tasksCopy.findIndex((task) => task.id === id);
+		tasksCopy[index].isCompleted = isCompleted;
+
+		setTasks(tasksCopy);
 		notification("Mais uma tarefa finalizada", "success");
 	};
+
+	const countCompletedTask = tasks?.filter((task) => task?.isCompleted).length;
 
 	return (
 		<div className="bg-gray-600 w-screen h-screen m-0 p-0 flex flex-col justify-start items-center">
